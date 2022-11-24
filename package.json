@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0",
+  "keywords": [
+    "textlintrule"
+  ],
+  "main": "lib/ja-conjunction-kanagaki.js",
+  "files": [
+    "lib/",
+    "src/"
+  ],
+  "scripts": {
+    "test": "textlint-scripts test",
+    "build": "textlint-scripts build",
+    "prepublish": "npm run --if-present build"
+  },
+  "devDependencies": {
+    "@textlint/types": "^12.2.3",
+    "kuromojin": "^3.0.0",
+    "textlint-scripts": "^12.2.3",
+    "textlint-tester": "^12.2.3"
+  },
+  "name": "textlint-rule-ja-conjunction-kanagaki",
+  "description": "Rule of conjunctive particle 'Kanagaki' writing style for Japanese.",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/er-ri/textlint-rule-ja-conjunction-kanagaki.git"
+  },
+  "author": "er-ri",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/er-ri/textlint-rule-ja-conjunction-kanagaki/issues"
+  },
+  "homepage": "https://github.com/er-ri/textlint-rule-ja-conjunction-kanagaki#readme"
+}
