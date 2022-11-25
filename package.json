@@ -3,7 +3,7 @@
   "keywords": [
     "textlintrule"
   ],
-  "main": "lib/ja-conjunction-kanagaki.js",
+  "main": "lib/personal-original.js",
   "files": [
     "lib/",
     "src/"
@@ -19,7 +19,7 @@
     "textlint-scripts": "^12.2.3",
     "textlint-tester": "^12.2.3"
   },
-  "name": "textlint-rule-ja-conjunction-kanagaki",
+  "name": "textlint-rule-personal-original",
   "description": "Rule of conjunctive particle 'Kanagaki' writing style for Japanese.",
   "directories": {
     "test": "test"
