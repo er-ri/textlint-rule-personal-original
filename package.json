@@ -26,12 +26,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/er-ri/textlint-rule-ja-conjunction-kanagaki.git"
+    "url": "git+https://github.com/er-ri/textlint-rule-personal-original.git"
   },
   "author": "er-ri",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/er-ri/textlint-rule-ja-conjunction-kanagaki/issues"
+    "url": "https://github.com/er-ri/textlint-rule-personal-original/issues"
   },
-  "homepage": "https://github.com/er-ri/textlint-rule-ja-conjunction-kanagaki#readme"
+  "homepage": "https://github.com/er-ri/textlint-rule-personal-original#readme"
 }

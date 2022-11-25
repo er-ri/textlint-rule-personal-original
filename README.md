@@ -1,6 +1,6 @@
-# textlint-rule-ja-conjunction-kanagaki
+# textlint-rule-personal-original
 
-Rule of conjunctive particle 'Kanagaki' writing style for Japanese.
+Textlint rule for personal use.
 
 ## Install
 ```
@@ -8,7 +8,7 @@ Rule of conjunctive particle 'Kanagaki' writing style for Japanese.
 npm install --save-dev kuromojin
 
 # Install this package
-npm install --save-dev https://github.com/er-ri/textlint-rule-ja-conjunction-kanagaki/tarball/v1.0.1
+npm install --save-dev https://github.com/er-ri/textlint-rule-personal-original/tarball/v1.0.1
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ Via `.textlintrc`(Recommended)
 ```json
 {
     "rules": {
-        "ja-conjunction-kanagaki": true
+        "personal-original": true
     }
 }
 ```
@@ -26,7 +26,7 @@ Via `.textlintrc`(Recommended)
 Via CLI
 
 ```
-textlint --rule ja-conjunction-kanagaki README.md
+textlint --rule personal-original" README.md
 ```
 
 ### Build
