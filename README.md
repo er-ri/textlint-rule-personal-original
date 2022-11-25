@@ -2,8 +2,14 @@
 
 Rule of conjunctive particle 'Kanagaki' writing style for Japanese.
 
-## Enable Debug in VS Code
-* https://someiyoshino.info/entry/2022/07/30/185845
+## Install
+```
+# Necessary dependancies
+npm install --save-dev kuromojin
+
+# Install this package
+npm install --save-dev https://github.com/er-ri/textlint-rule-ja-conjunction-kanagaki/tarball/v1.0.1
+```
 
 ## Usage
 
@@ -39,4 +45,7 @@ Test textlint rule by [textlint-tester](https://github.com/textlint/textlint-tes
 
 ## License
 
-ISC © er-ri
+MIT © er-ri
+
+## Reference
+* [Enable Debug in VS Code](https://someiyoshino.info/entry/2022/07/30/185845)
