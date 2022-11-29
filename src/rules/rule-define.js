@@ -4,8 +4,9 @@
     (f) 接続詞かな書き
 */
 import matchTokenStream from "./../matchTokenStream";
+
 export default function (context) {
-    const {RuleError} = context;
+    const {RuleError, fixer} = context;
 
     const matchPattern又はかな書き = matchTokenStream([
         {
@@ -31,17 +32,20 @@ export default function (context) {
     return (token) => {
         if (matchPattern又はかな書き(token)) {
             return new RuleError("接続詞かな書き: 又は", {
-                index: token.word_position - 1
+                index: token.word_position - 1,
+                fix: fixer.replaceTextRange([token.word_position - 1, token.word_position - 1 + token.surface_form.length], "または")
             });
         }
         if (matchPattern若しくはかな書き(token)) {
             return new RuleError("接続詞かな書き: 若しくは", {
-                index: token.word_position - 1
+                index: token.word_position - 1,
+                fix: fixer.replaceTextRange([token.word_position - 1, token.word_position - 1 + token.surface_form.length], "もしくは")
             });
         }
         if (matchPattern打ち合わせ送り仮名(token)) {
             return new RuleError("送り仮名: 打ち合わせ", {
-                index: token.word_position - 1
+                index: token.word_position - 1,
+                fix: fixer.replaceTextRange([token.word_position - 1, token.word_position - 1 + token.surface_form.length], "打合せ")
             });
         }
     };

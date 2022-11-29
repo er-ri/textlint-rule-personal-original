@@ -4,7 +4,7 @@ import 若しくはかな書き from "./rules/rule-define"
 import 打ち合わせ送り仮名 from "./rules/rule-define"
 
  export default function (context) {
-    const { Syntax, getSource, RuleError, report, locator } = context;
+    const { Syntax, getSource, RuleError, report, fixer, locator } = context;
 
     const rule又はかな書き = 又はかな書き(context);
     const rule若しくはかな書き = 若しくはかな書き(context);

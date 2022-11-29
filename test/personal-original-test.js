@@ -8,12 +8,11 @@ tester.run("接続詞かな書きチェック", rule, {
         // single match
         {
             text: "打ち合わせを設定します。",
-            options: {
-                "allows": ["OK"]
-            },
             errors: [
                 {
-                    message: "送り仮名: 打ち合わせ"
+                    message: "送り仮名: 打ち合わせ",
+                    // index: 44,
+                    fix: {'range': [40, 43], '123': 'ABC'}
                 }
             ]
         },
