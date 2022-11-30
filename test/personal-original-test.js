@@ -7,6 +7,24 @@ tester.run("接続詞かな書きチェック", rule, {
     invalid: [
         // single match
         {
+            text: "わたしはいいです。",
+            errors: [
+                {
+                    message: "代名詞漢字書き: わたし"
+                }
+            ]
+        },
+        // single match
+        {
+            text: "さらにいいです。",
+            errors: [
+                {
+                    message: "副詞漢字書き: さらに"
+                }
+            ]
+        },
+        // single match
+        {
             text: "追って追記します。",
             errors: [
                 {

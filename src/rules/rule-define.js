@@ -5,6 +5,28 @@
 */
 import matchTokenStream from "./../matchTokenStream";
 
+const PRONOUN_TABLE = [
+    {
+        forbidden_form: "わたし",
+        preferred_form: "私"
+    },
+    {
+        forbidden_form: "かれ",
+        preferred_form: "彼"
+    }
+];
+
+const ADVERB_TABLE = [
+    {
+        forbidden_form: "さらに",
+        preferred_form: "更に"
+    },
+    {
+        forbidden_form: "すでに",
+        preferred_form: "既に"
+    }
+];
+
 const CONJUNCTION_TABLE = [
     {
         forbidden_form: "追って",
@@ -39,6 +61,19 @@ function findForbidden(surface_form, formTable){
 export default function (context) {
     const {RuleError, fixer} = context;
 
+    const matchPattern代名詞漢字書き = matchTokenStream([
+        {
+            "pos": "名詞",
+            "pos_detail_1": "代名詞"
+        }
+    ]);
+
+    const matchPattern副詞漢字書き = matchTokenStream([
+        {
+            "pos": "副詞"
+        }
+    ]);
+
     const matchPattern接続詞かな書き = matchTokenStream([
         {
             "pos": "接続詞"
@@ -53,7 +88,24 @@ export default function (context) {
 
     return (token) => {
         var forbbidenExist;
-
+        if (matchPattern代名詞漢字書き(token) == true) {
+            forbbidenExist = findForbidden(token.surface_form, PRONOUN_TABLE);
+            if(forbbidenExist != undefined){
+                return new RuleError(`代名詞漢字書き: ${forbbidenExist["forbidden_form"]}`, {
+                    index: token.word_position - 1,
+                    fix: fixer.replaceTextRange([token.word_position - 1, token.word_position - 1 + token.surface_form.length], "または")
+                });
+            }
+        };
+        if (matchPattern副詞漢字書き(token) == true) {
+            forbbidenExist = findForbidden(token.surface_form, ADVERB_TABLE);
+            if(forbbidenExist != undefined){
+                return new RuleError(`副詞漢字書き: ${forbbidenExist["forbidden_form"]}`, {
+                    index: token.word_position - 1,
+                    fix: fixer.replaceTextRange([token.word_position - 1, token.word_position - 1 + token.surface_form.length], "または")
+                });
+            }
+        };
         if (matchPattern接続詞かな書き(token) == true) {
             forbbidenExist = findForbidden(token.surface_form, CONJUNCTION_TABLE);
             if(forbbidenExist != undefined){
@@ -62,7 +114,7 @@ export default function (context) {
                     fix: fixer.replaceTextRange([token.word_position - 1, token.word_position - 1 + token.surface_form.length], "または")
                 });
             }
-        }
+        };
         if (matchPattern名詞送り仮名(token) == true) {
             forbbidenExist = findForbidden(token.surface_form, NOUN_TABLE);
             if(forbbidenExist != undefined){
@@ -71,6 +123,6 @@ export default function (context) {
                     fix: fixer.replaceTextRange([token.word_position - 1, token.word_position - 1 + token.surface_form.length], "または")
                 });
             }
-        }
+        };
     };
 }
