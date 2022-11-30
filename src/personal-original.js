@@ -1,14 +1,10 @@
 import { tokenize } from "kuromojin";
-import 又はかな書き from "./rules/rule-define"
-import 若しくはかな書き from "./rules/rule-define"
-import 打ち合わせ送り仮名 from "./rules/rule-define"
+import 接続詞かな書き from "./rules/rule-define"
 
- export default function (context) {
+const reporter = (context, options = {}) => {
     const { Syntax, getSource, RuleError, report, fixer, locator } = context;
 
-    const rule又はかな書き = 又はかな書き(context);
-    const rule若しくはかな書き = 若しくはかな書き(context);
-    const rule打ち合わせ送り仮名 = 打ち合わせ送り仮名(context);
+    const rule接続詞かな書き = 接続詞かな書き(context);
 
     return {
         [Syntax.Str](node) {
@@ -22,9 +18,7 @@ import 打ち合わせ送り仮名 from "./rules/rule-define"
 
             return tokenize(text).then((tokens) => {
                 tokens.forEach((token) => {
-                    pushError(rule又はかな書き(token));
-                    pushError(rule若しくはかな書き(token));
-                    pushError(rule打ち合わせ送り仮名(token));
+                    pushError(rule接続詞かな書き(token));
                 });
             }).then(()=> {
                 results.forEach(error => {
@@ -34,3 +28,8 @@ import 打ち合わせ送り仮名 from "./rules/rule-define"
         }  
     };
 }
+
+module.exports = {
+    linter: reporter,
+    fixer: reporter
+};

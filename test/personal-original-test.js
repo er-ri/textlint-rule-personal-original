@@ -7,48 +7,39 @@ tester.run("接続詞かな書きチェック", rule, {
     invalid: [
         // single match
         {
-            text: "打ち合わせを設定します。",
+            text: "追って追記します。",
             errors: [
                 {
-                    message: "送り仮名: 打ち合わせ",
-                    // index: 44,
-                    fix: {'range': [40, 43], '123': 'ABC'}
+                    message: "接続詞かな書き: 追って"
                 }
             ]
         },
         // single match
         {
-            text: "例二、本人又は代理の者に限る。",
+            text: "従って、最初は。",
             errors: [
                 {
-                    message: "接続詞かな書き: 又は",
-                    range: [5, 6]
+                    message: "接続詞かな書き: 従って"
                 }
             ]
         },
-        // multiple match
+        // single match
         {
-            text: "本人又は代理の者に限り、若しくは本人の家族。",
+            text: "受け付けはそちらです。",
             errors: [
                 {
-                    message: "接続詞かな書き: 又は",
-                    range: [2, 3]
-                },
-                {
-                    message: "接続詞かな書き: 若しくは",
-                    range: [12, 13]
+                    message: "名詞送り仮名: 受け付け"
                 }
             ]
         },
-    
-    ],
-    valid: [
-        // no problem
+        // single match
         {
-            text: "本人または代理の者に限る。",
-            options: {
-                allows: ["OK"]
-            }
-        }
+            text: "打ち合わせを設定します。",
+            errors: [
+                {
+                    message: "名詞送り仮名: 打ち合わせ"
+                }
+            ]
+        },
     ]
 });
