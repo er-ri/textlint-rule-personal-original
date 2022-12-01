@@ -1,14 +1,17 @@
 import { tokenize } from "kuromojin";
-import 又はかな書き from "./rules/rule-define"
-import 若しくはかな書き from "./rules/rule-define"
-import 打ち合わせ送り仮名 from "./rules/rule-define"
+import 代名詞漢字書き from "./rules/rule-define"
+// import 副詞漢字書き from "./rules/rule-define"
+// import 接続詞かな書き from "./rules/rule-define"
+// import 名詞送り仮名 from "./rules/rule-define"
 
- export default function (context) {
-    const { Syntax, getSource, RuleError, report, locator } = context;
+const reporter = (context, options = {}) => {
+    const { Syntax, getSource, RuleError, report, fixer, locator } = context;
 
-    const rule又はかな書き = 又はかな書き(context);
-    const rule若しくはかな書き = 若しくはかな書き(context);
-    const rule打ち合わせ送り仮名 = 打ち合わせ送り仮名(context);
+    // Only the first rule in `rule-define.js` is required, the following rules will be executed automatically.
+    const rule代名詞漢字書き = 代名詞漢字書き(context);
+    // const rule副詞漢字書き = 副詞漢字書き(context);
+    // const rule接続詞かな書き = 接続詞かな書き(context);
+    // const rule名詞送り仮名 = 名詞送り仮名(context);
 
     return {
         [Syntax.Str](node) {
@@ -22,9 +25,10 @@ import 打ち合わせ送り仮名 from "./rules/rule-define"
 
             return tokenize(text).then((tokens) => {
                 tokens.forEach((token) => {
-                    pushError(rule又はかな書き(token));
-                    pushError(rule若しくはかな書き(token));
-                    pushError(rule打ち合わせ送り仮名(token));
+                    pushError(rule代名詞漢字書き(token));
+                    // pushError(rule副詞漢字書き(token));
+                    // pushError(rule接続詞かな書き(token));
+                    // pushError(rule名詞送り仮名(token));
                 });
             }).then(()=> {
                 results.forEach(error => {
@@ -34,3 +38,8 @@ import 打ち合わせ送り仮名 from "./rules/rule-define"
         }  
     };
 }
+
+module.exports = {
+    linter: reporter,
+    fixer: reporter
+};
