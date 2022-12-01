@@ -44,7 +44,7 @@ Test textlint rule by [textlint-tester](https://github.com/textlint/textlint-tes
     npm test
 
 ## Note
-* The key `main` in `package.json` is used for searching rule entry point, modify the value when renaming rule name.
+* The key `main` in `package.json` is used for searching rule entry point, modify the value when renaming the rule name.
 
 ## License
 

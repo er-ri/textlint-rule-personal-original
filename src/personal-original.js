@@ -7,6 +7,7 @@ import 代名詞漢字書き from "./rules/rule-define"
 const reporter = (context, options = {}) => {
     const { Syntax, getSource, RuleError, report, fixer, locator } = context;
 
+    // Only the first rule in `rule-define.js` is required, the following rules will be executed automatically.
     const rule代名詞漢字書き = 代名詞漢字書き(context);
     // const rule副詞漢字書き = 副詞漢字書き(context);
     // const rule接続詞かな書き = 接続詞かな書き(context);
