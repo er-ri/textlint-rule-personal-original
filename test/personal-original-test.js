@@ -7,7 +7,7 @@ tester.run("接続詞かな書きチェック", rule, {
     invalid: [
         // single match
         {
-            text: `はい。`,
+            text: `又は。`,
             errors: [
                 {
                     message: "1文長さが40文字超えている: 本田のコメントを掲載..."

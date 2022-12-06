@@ -137,7 +137,7 @@ export default function (context) {
             if(kanjiFlag == true){
                 return new RuleError(`接続詞かな書き: ${token.surface_form}`, {
                     index: token.word_position - 1,
-                    fix: fixer.replaceTextRange([token.word_position - 1, token.word_position - 1 + token.surface_form.length], convertKanaToHira(token.pronunciation))
+                    fix: fixer.replaceTextRange([token.word_position - 1, token.word_position - 1 + token.surface_form.length], convertKanaToHira(token.reading))
                 });
             }
         };
