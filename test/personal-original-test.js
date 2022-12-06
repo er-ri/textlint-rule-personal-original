@@ -7,6 +7,24 @@ tester.run("接続詞かな書きチェック", rule, {
     invalid: [
         // single match
         {
+            text: `はい。`,
+            errors: [
+                {
+                    message: "1文長さが40文字超えている: 本田のコメントを掲載..."
+                }
+            ]
+        },
+        // single match
+        {
+            text: `本田のコメントを掲載本田のコメントを掲載本田のコメントを掲載本田のコメントを掲載本田のコメントを掲載本田のコメントを掲載。`,
+            errors: [
+                {
+                    message: "1文長さが40文字超えている: 本田のコメントを掲載..."
+                }
+            ]
+        },
+        // single match
+        {
             text: "わたしはいいです。",
             errors: [
                 {
