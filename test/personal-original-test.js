@@ -3,14 +3,17 @@ import rule from "../src/personal-original";
 
 const tester = new TextLintTester();
 // ruleName, rule, { valid, invalid }
-tester.run("接続詞かな書きチェック", rule, {
+tester.run("日本語チェック", rule, {
     invalid: [
         // single match
         {
-            text: `又は。`,
+            text: `todo:アルゴリズム     メッセージ`,
             errors: [
                 {
-                    message: "1文長さが40文字超えている: 本田のコメントを掲載..."
+                    message: "Customized message1: アルゴリズム"
+                },
+                {
+                    message: "Customized message2: メッセージ"
                 }
             ]
         },

@@ -57,12 +57,6 @@ const matchPattern接続詞かな書き = matchTokenStream([
     }
 ]);
 
-const matchPattern感動詞かな書き = matchTokenStream([
-    {
-        "pos": "感動詞"
-    }
-]);
-
 const matchPattern名詞送り仮名 = matchTokenStream([
     {
         "pos": "名詞"
@@ -113,7 +107,8 @@ function convertKanaToHira(str) {
 export default function (context) {
     const {RuleError, fixer} = context;
 
-    return (token) => {        
+    return (token) => {     
+        
         if (matchPattern代名詞漢字書き(token) == true) {
             var forbbidenExist = findForbidden(token.surface_form, PRONOUN_TABLE);
             if(forbbidenExist != undefined){
