@@ -1,19 +1,52 @@
 import { tokenize } from "kuromojin";
-import 代名詞漢字書き from "./rules/rule-define"
-// import 副詞漢字書き from "./rules/rule-define"
-// import 接続詞かな書き from "./rules/rule-define"
-// import 名詞送り仮名 from "./rules/rule-define"
+import { split, Syntax } from "sentence-splitter";
+import singleTokenRule from "./rules/rule-define"
+const { PHRASE_TABLE } = require('./rules/phrase-table');
 
 const reporter = (context, options = {}) => {
     const { Syntax, getSource, RuleError, report, fixer, locator } = context;
 
-    // Only the first rule in `rule-define.js` is required, the following rules will be executed automatically.
-    const rule代名詞漢字書き = 代名詞漢字書き(context);
-    // const rule副詞漢字書き = 副詞漢字書き(context);
-    // const rule接続詞かな書き = 接続詞かな書き(context);
-    // const rule名詞送り仮名 = 名詞送り仮名(context);
+    // Only the first rule in `rule-define.js` is required, the other rules will be executed automatically.
+    const ruleかな漢字書き = singleTokenRule(context);
 
     return {
+        [Syntax.Paragraph](node) {
+            const text = getSource(node);
+
+            // Check paragraph length.
+            // if(text.length > 120){
+            //     return new RuleError(`1段落長さが120文字超えている: ${text.slice(0, 10) + '...'}`);
+            // }
+
+            // Check every sentences length.
+            var sentences = split(text);
+            sentences.forEach(sentence => {
+                if(sentence.type === "Sentence" && sentence.raw.length > 40){
+                    const ruleError = new RuleError(`1文長さが40文字超えている: ${sentence.raw.slice(0, 10) + '...'}`, {
+                        start: sentence.loc.start
+                    });
+                    report(node, ruleError); 
+                }
+
+                // Replace forbidden phrases for the every sentences using Regular Expression.
+                for(var i = 0; i < PHRASE_TABLE.length; i++){
+                    var phrase = PHRASE_TABLE[i]['forbidden_phrase'];
+                    var re = new RegExp(phrase, 'ig');
+    
+                    for (let match of sentence.raw.matchAll(re)) {
+                        if (match) {
+                            report(
+                                node,
+                                new RuleError(`${PHRASE_TABLE[i]['warning_message']}: ${phrase}`, {
+                                    padding: locator.range([match.index, match.index + phrase.length]),
+                                    fix: fixer.replaceTextRange([match.index, match.index + phrase.length], PHRASE_TABLE[i]['preferred_phrase'])
+                                })
+                            );
+                        }
+                    }
+                }
+            });
+        },
         [Syntax.Str](node) {
             const text = getSource(node);
             const results = [];
@@ -25,17 +58,15 @@ const reporter = (context, options = {}) => {
 
             return tokenize(text).then((tokens) => {
                 tokens.forEach((token) => {
-                    pushError(rule代名詞漢字書き(token));
-                    // pushError(rule副詞漢字書き(token));
-                    // pushError(rule接続詞かな書き(token));
-                    // pushError(rule名詞送り仮名(token));
+                    pushError(ruleかな漢字書き(token));
                 });
+
             }).then(()=> {
                 results.forEach(error => {
                     report(node, error);
                 })
             });
-        }  
+        }
     };
 }
 
