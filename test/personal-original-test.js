@@ -7,13 +7,13 @@ tester.run("日本語チェック", rule, {
     invalid: [
         // single match
         {
-            text: `todo:アルゴリズム     メッセージ`,
+            text: `Test string: 副社長、社長、社長、社長`,
             errors: [
                 {
-                    message: "Customized message1: アルゴリズム"
+                    message: "Customized message1: 副社長"
                 },
                 {
-                    message: "Customized message2: メッセージ"
+                    message: "Customized message2: 社長"
                 }
             ]
         },

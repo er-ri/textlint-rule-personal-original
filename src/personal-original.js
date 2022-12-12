@@ -31,7 +31,8 @@ const reporter = (context, options = {}) => {
                 // Replace forbidden phrases for the every sentences using Regular Expression.
                 for(var i = 0; i < PHRASE_TABLE.length; i++){
                     var phrase = PHRASE_TABLE[i]['forbidden_phrase'];
-                    var re = new RegExp(phrase, 'ig');
+                    var phrase_regex = PHRASE_TABLE[i]['forbidden_regex'];
+                    var re = new RegExp(phrase_regex, 'ig');
     
                     for (let match of sentence.raw.matchAll(re)) {
                         if (match) {
