@@ -2,8 +2,10 @@
 
 Textlint rule for personal use.
 
+## 
+
 ## Install
-```
+```bash
 # Necessary dependancies
 npm install --save-dev kuromojin
 
@@ -25,7 +27,7 @@ Via `.textlintrc`(Recommended)
 
 Via CLI
 
-```
+```bash
 textlint --rule personal-original" README.md
 ```
 

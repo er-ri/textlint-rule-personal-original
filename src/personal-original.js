@@ -6,17 +6,13 @@ const { PHRASE_TABLE } = require('./rules/phrase-table');
 const reporter = (context, options = {}) => {
     const { Syntax, getSource, RuleError, report, fixer, locator } = context;
 
-    // Only the first rule in `rule-define.js` is required, the other rules will be executed automatically.
     const ruleかな漢字書き = singleTokenRule(context);
 
     return {
         [Syntax.Paragraph](node) {
             const text = getSource(node);
-
-            // Check paragraph length.
-            // if(text.length > 120){
-            //     return new RuleError(`1段落長さが120文字超えている: ${text.slice(0, 10) + '...'}`);
-            // }
+            
+            console.log("The text to be proceed: " + text);
 
             // Check every sentences length.
             var sentences = split(text);
@@ -27,28 +23,31 @@ const reporter = (context, options = {}) => {
                     });
                     report(node, ruleError); 
                 }
+            });
 
-                // Replace forbidden phrases for the every sentences using Regular Expression.
-                for(var i = 0; i < PHRASE_TABLE.length; i++){
-                    var phrase = PHRASE_TABLE[i]['forbidden_phrase'];
-                    var re = new RegExp(phrase, 'ig');
-    
-                    for (let match of sentence.raw.matchAll(re)) {
-                        if (match) {
-                            report(
-                                node,
-                                new RuleError(`${PHRASE_TABLE[i]['warning_message']}: ${phrase}`, {
-                                    padding: locator.range([match.index, match.index + phrase.length]),
-                                    fix: fixer.replaceTextRange([match.index, match.index + phrase.length], PHRASE_TABLE[i]['preferred_phrase'])
-                                })
-                            );
-                        }
+            // Replace forbidden phrases for the whole text using Regular Expression.
+            // Issue: Do not place the following code under sentence-splitter(leading spaces are not included)
+            for(var i = 0; i < PHRASE_TABLE.length; i++){
+                var phrase = PHRASE_TABLE[i]['forbidden_phrase'];
+                var phrase_regex = PHRASE_TABLE[i]['forbidden_regex'];
+                var re = new RegExp(phrase_regex, 'ig');
+
+                for (let match of text.matchAll(re)) {
+                    if (match) {
+                        report(
+                            node,
+                            new RuleError(`${PHRASE_TABLE[i]['warning_message']}: ${phrase}`, {
+                                padding: locator.range([match.index, match.index + phrase.length]),
+                                fix: fixer.replaceTextRange([match.index, match.index + phrase.length], PHRASE_TABLE[i]['preferred_phrase'])
+                            })
+                        );
                     }
                 }
-            });
+            }
         },
         [Syntax.Str](node) {
             const text = getSource(node);
+
             const results = [];
             const pushError = (error) => {
                 if (error) {
