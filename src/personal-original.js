@@ -6,12 +6,13 @@ const { PHRASE_TABLE } = require('./rules/phrase-table');
 const reporter = (context, options = {}) => {
     const { Syntax, getSource, RuleError, report, fixer, locator } = context;
 
-    // Only the first rule in `rule-define.js` is required, the other rules will be executed automatically.
     const ruleかな漢字書き = singleTokenRule(context);
 
     return {
         [Syntax.Paragraph](node) {
             const text = getSource(node);
+            
+            console.log("The text to be proceed: " + text);
 
             // Check every sentences length.
             var sentences = split(text);
@@ -25,7 +26,7 @@ const reporter = (context, options = {}) => {
             });
 
             // Replace forbidden phrases for the whole text using Regular Expression.
-            // Issue: Do not place the following code under sentence-splitter(leading space will be removed automatically)
+            // Issue: Do not place the following code under sentence-splitter(leading spaces are not included)
             for(var i = 0; i < PHRASE_TABLE.length; i++){
                 var phrase = PHRASE_TABLE[i]['forbidden_phrase'];
                 var phrase_regex = PHRASE_TABLE[i]['forbidden_regex'];
@@ -46,6 +47,7 @@ const reporter = (context, options = {}) => {
         },
         [Syntax.Str](node) {
             const text = getSource(node);
+
             const results = [];
             const pushError = (error) => {
                 if (error) {

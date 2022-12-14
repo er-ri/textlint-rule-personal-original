@@ -3,21 +3,44 @@ import rule from "../src/personal-original";
 
 const tester = new TextLintTester();
 // ruleName, rule, { valid, invalid }
-tester.run("日本語チェック", rule, {
+tester.run("text checker", rule, {
     invalid: [
-        // single match
         {
-            text: `Test string: 副社長、社長、社長、社長`,
+            text: `    string contains 'todo' with leading spaces.`,
             errors: [
                 {
-                    message: "Customized message1: 副社長"
-                },
-                {
-                    message: "Customized message2: 社長"
+                    message: "Customized message: todo"
                 }
             ]
         },
-        // single match
+        {
+            text: `String contains 'todo'`,
+            errors: [
+                {
+                    message: "Customized message: todo"
+                }
+            ]
+        },
+        {
+            text: "   さらにいいです。",
+            errors: [
+                {
+                    message: "副詞漢字書き: さらに"
+                }
+            ]
+        },
+        {
+            // `textlint tester` seems skip the string which contains leading spaces. 
+            text: `副社長、社長`,
+            errors: [
+                {
+                    message: "Customized message: 副社長"
+                },
+                {
+                    message: "Customized message: 社長"
+                }
+            ]
+        },
         {
             text: `本田のコメントを掲載本田のコメントを掲載本田のコメントを掲載本田のコメントを掲載本田のコメントを掲載本田のコメントを掲載。`,
             errors: [
@@ -26,7 +49,6 @@ tester.run("日本語チェック", rule, {
                 }
             ]
         },
-        // single match
         {
             text: "わたしはいいです。",
             errors: [
@@ -35,16 +57,6 @@ tester.run("日本語チェック", rule, {
                 }
             ]
         },
-        // single match
-        {
-            text: "さらにいいです。",
-            errors: [
-                {
-                    message: "副詞漢字書き: さらに"
-                }
-            ]
-        },
-        // single match
         {
             text: "追って追記します。",
             errors: [
@@ -53,7 +65,6 @@ tester.run("日本語チェック", rule, {
                 }
             ]
         },
-        // single match
         {
             text: "従って、最初は。",
             errors: [
@@ -62,7 +73,6 @@ tester.run("日本語チェック", rule, {
                 }
             ]
         },
-        // single match
         {
             text: "受け付けはそちらです。",
             errors: [
@@ -71,7 +81,6 @@ tester.run("日本語チェック", rule, {
                 }
             ]
         },
-        // single match
         {
             text: "打ち合わせを設定します。",
             errors: [
