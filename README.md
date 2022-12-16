@@ -53,4 +53,5 @@ Test textlint rule by [textlint-tester](https://github.com/textlint/textlint-tes
 MIT © er-ri
 
 ## Reference
-* [Enable Debug in VS Code](https://someiyoshino.info/entry/2022/07/30/185845)
+* [AST Explorer](https://textlint.github.io/astexplorer/)
+* [Enable Debug in VS Code for Textlint Rules](https://someiyoshino.info/entry/2022/07/30/185845)
