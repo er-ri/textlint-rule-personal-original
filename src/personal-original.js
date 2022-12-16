@@ -9,10 +9,14 @@ const reporter = (context, options = {}) => {
     const ruleかな漢字書き = singleTokenRule(context);
 
     return {
-        [Syntax.Paragraph](node) {
+        [Syntax.Document](node) {
             const text = getSource(node);
-            
-            console.log("The text to be proceed: " + text);
+            const results = [];
+            const pushError = (error) => {
+                if (error) {
+                    results.push(error);
+                }
+            };
 
             // Check every sentences length.
             var sentences = split(text);
@@ -44,16 +48,6 @@ const reporter = (context, options = {}) => {
                     }
                 }
             }
-        },
-        [Syntax.Str](node) {
-            const text = getSource(node);
-
-            const results = [];
-            const pushError = (error) => {
-                if (error) {
-                    results.push(error);
-                }
-            };
 
             return tokenize(text).then((tokens) => {
                 tokens.forEach((token) => {

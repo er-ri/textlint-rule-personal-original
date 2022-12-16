@@ -9,6 +9,9 @@ tester.run("text checker", rule, {
             text: `    string contains 'todo' with leading spaces.`,
             errors: [
                 {
+                    message: "1文長さが40文字超えている: string con..."
+                },
+                {
                     message: "Customized message: todo"
                 }
             ]
