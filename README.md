@@ -2,8 +2,6 @@
 
 Textlint rule for personal use.
 
-## 
-
 ## Install
 ```bash
 # Necessary dependancies
